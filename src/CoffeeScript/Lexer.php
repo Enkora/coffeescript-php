@@ -1229,7 +1229,7 @@ class Lexer
       $token[0] = $tag;
     }
 
-    return $token[0];
+    return $token[0] ?? null;
   }
 
   function tag_parameters()

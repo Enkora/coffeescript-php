@@ -292,7 +292,8 @@ class Lexer
 
       return $token;
     }
-    else if (is_numeric($token))
+
+    if (is_numeric($token))
     {
       $token = substr(Parser::tokenName($token), 3);
     }
@@ -316,7 +317,7 @@ class Lexer
       $code = "\n{$code}";
     }
 
-    $code = preg_replace(self::$TRAILING_SPACES, '', str_replace("\r", '', $code));
+    $code = rtrim(str_replace("\r", '', $code));
 
     $options = array_merge(array(
       'indent'  => 0,
@@ -357,7 +358,7 @@ class Lexer
         continue;
       }
 
-      switch ($letter = $str{$i})
+      switch ($letter = $str[$i])
       {
       case '\\':
         ++$continue_count;
@@ -443,7 +444,7 @@ class Lexer
     }
 
     $heredoc = $match[0];
-    $quote = $heredoc{0};
+    $quote = $heredoc[0];
     $doc = $this->sanitize_heredoc($match[2], array('quote' => $quote, 'indent' => NULL));
 
     if ($quote === '"' && strpos($doc, '#{') !== FALSE)
@@ -469,7 +470,7 @@ class Lexer
       $re = preg_replace(self::$HEREGEX_OMIT, '', $body);
       $re = preg_replace('/\//', '\\/', $re);
 
-      if (preg_match('/^\*/', $re))
+      if (strpos($re, "*") === 0)
       {
         $this->error('regular expressions cannot begin with `*`');
       }
@@ -731,8 +732,7 @@ class Lexer
       $this->token('(', '(');
     }
 
-    for ($i = 0; $i < count($tokens); $i++)
-    {
+    foreach ($tokens as $i => $iValue) {
       list($tag, $value) = $tokens[$i];
 
       if ($i)
@@ -760,7 +760,7 @@ class Lexer
 
   function js_token()
   {
-    if ( ! ($this->chunk{0} === '`' && preg_match(self::$JSTOKEN, $this->chunk, $match)))
+    if ( ! ($this->chunk[0] === '`' && preg_match(self::$JSTOKEN, $this->chunk, $match)))
     {
       return 0;
     }
@@ -841,7 +841,7 @@ class Lexer
     }
     else
     {
-      $value = $this->chunk{0};
+      $value = $this->chunk[0];
     }
 
     $tag = t($value);
@@ -888,7 +888,7 @@ class Lexer
     {
       $tag = t('SHIFT');
     }
-    else if (in_array($value, self::$LOGIC) || $value === '?' && (isset($prev['spaced']) && $prev['spaced']))
+    else if (in_array($value, self::$LOGIC) || ($value === '?' && (isset($prev['spaced']) && $prev['spaced'])))
     {
       $tag = t('LOGIC');
     }
@@ -979,7 +979,7 @@ class Lexer
     {
       $this->error("radix prefix '$number' must be lowercase");
     }
-    else if (preg_match('/E/', $number) && ! preg_match('/^0x/', $number))
+    else if (strpos($number, "E") !== false && strpos($number, "0x") !== 0)
     {
       $this->error("exponential notation '$number' must be indicated with a lowercase 'e'");
     }
@@ -1077,7 +1077,7 @@ class Lexer
 
   function regex_token()
   {
-    if ($this->chunk{0} !== '/')
+    if ($this->chunk[0] !== '/')
     {
       return 0;
     }
@@ -1094,7 +1094,7 @@ class Lexer
 
     if ($prev)
     {
-      if (in_array($prev[0], t((isset($prev['spaced']) && $prev['spaced']) ? 
+      if (in_array($prev[0], t((isset($prev['spaced']) && $prev['spaced']) ?
         self::$NOT_REGEX : self::$NOT_SPACED_REGEX)))
       {
         return 0;
@@ -1168,7 +1168,7 @@ class Lexer
 
   function string_token()
   {
-    switch ($this->chunk{0})
+    switch ($this->chunk[0])
     {
     case "'":
       if ( ! preg_match(self::$SIMPLESTR, $this->chunk, $match))
@@ -1221,6 +1221,8 @@ class Lexer
   function tag($index = 0, $tag = NULL)
   {
     $token = & last($this->tokens, $index);
+
+    if (!$token) $token = [];
 
     if ( ! is_null($tag))
     {
@@ -1286,7 +1288,7 @@ class Lexer
   {
     while ( ($this->chunk = substr($this->code, $this->index)) != FALSE )
     {
-      $types = array('identifier', 'comment', 'whitespace', 'line', 'heredoc', 
+      $types = array('identifier', 'comment', 'whitespace', 'line', 'heredoc',
         'string', 'number', 'regex', 'js', 'literal');
 
       foreach ($types as $type)
@@ -1319,12 +1321,14 @@ class Lexer
   {
     $token = & last($this->tokens, $index);
 
+    if (!$token) $token = [];
+
     if ( ! is_null($value))
     {
       $token[1] = $value;
     }
 
-    return $token[1];
+    return $token[1] ?? null;
   }
 
   function unfinished()
@@ -1337,7 +1341,7 @@ class Lexer
 
   function whitespace_token()
   {
-    if ( ! (preg_match(self::$WHITESPACE, $this->chunk, $match) || ($nline = ($this->chunk{0} === "\n"))))
+    if ( ! (preg_match(self::$WHITESPACE, $this->chunk, $match) || ($nline = ($this->chunk[0] === "\n"))))
     {
       return 0;
     }

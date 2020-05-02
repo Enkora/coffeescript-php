@@ -654,7 +654,7 @@ class Lexer
 
     while ( isset($str{++$i}) )
     {
-      $letter = $str{$i};
+      $letter = $str[$i];
 
       if ($letter === '\\')
       {

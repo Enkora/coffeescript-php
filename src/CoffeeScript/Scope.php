@@ -98,7 +98,7 @@ class Scope
     {
       if ($v['type'] === 'var')
       {
-        if ($v['name']{0} === '_')
+        if ($v['name'][0] === '_')
         {
           $temp_vars[] = $v['name'];
         }

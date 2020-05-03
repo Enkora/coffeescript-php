@@ -652,7 +652,7 @@ class Lexer
     $pi = 0;
     $i = -1;
 
-    while ( isset($str{++$i}) )
+    while ( isset($str[++$i]) )
     {
       $letter = $str[$i];
 

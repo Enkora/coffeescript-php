@@ -41,11 +41,11 @@ test "octal escape sequences prohibited", ->
   strict    '"_\\1_"'
   strict    '"\\\\\\1"'
   strictOk  '"\\0"'
-  eq "\x00", "\0"
+  eq "\x00", "\\0"
   strictOk  '"\\08"'
-  eq "\x008", "\08"
+  eq "\x008", "\\08"
   strictOk  '"\\0\\8"'
-  eq "\x008", "\0\8"
+  eq "\x008", "\\0\\8"
   strictOk  '"\\8"'
   eq "8", "\8"
   strictOk  '"\\\\1"'

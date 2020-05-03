@@ -14,8 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: PHP Runner
-      uses: franzliedke/gh-action-php@0.2.0
-    
-    - name: run tests
-      run: php7.0 tests/index.php
+    - uses: franzliedke/gh-action-php@0.2.0
+      with:
+        runs: php7.0 --version

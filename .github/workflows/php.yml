@@ -15,4 +15,5 @@ jobs:
     - uses: actions/checkout@v2
 
     - uses: franzliedke/gh-action-php@0.2.0
-      run: php7.0 --version
+    
+    - run: php7.0 tests/index.php 

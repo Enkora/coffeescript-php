@@ -1,4 +1,4 @@
-name: PHP Composer
+name: Run tests
 
 on:
   push:
@@ -15,5 +15,4 @@ jobs:
     - uses: actions/checkout@v2
 
     - uses: franzliedke/gh-action-php@0.2.0
-      with:
-        runs: php7.0 --version
+      run: php7.0 --version

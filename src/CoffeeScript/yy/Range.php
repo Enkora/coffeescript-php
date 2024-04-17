@@ -2,6 +2,7 @@
 
 namespace CoffeeScript;
 
+#[\AllowDynamicProperties]
 class yy_Range extends yy_Base
 {
   public $children = array('from', 'to');

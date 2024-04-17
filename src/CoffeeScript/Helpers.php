@@ -11,9 +11,9 @@ class Helpers {
    * with their parent class's. This workaround is used to silence E_STRICT
    * errors.
    *
-   * @param $args      `func_get_args()`
-   * @param $required  The number of required arguments.
-   * @param $optional  An array of defaults for optional arguments.
+   * @param array $args      `func_get_args()`
+   * @param mixed $required  The number of required arguments.
+   * @param array $optional  An array of defaults for optional arguments.
    */
   static function args(array $args, $required, array $optional = NULL)
   {

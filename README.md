@@ -1,7 +1,8 @@
 # CoffeeScript PHP
 
-A port of the [CoffeeScript](http://jashkenas.github.com/coffee-script/)
-compiler to PHP.
+A port of the [CoffeeScript](http://jashkenas.github.com/coffee-script/) compiler to PHP.
+
+Updating compatibility up to PHP 8.2.
 
 ## Status
 

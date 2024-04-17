@@ -2,6 +2,7 @@
 
 namespace CoffeeScript;
 
+#[\AllowDynamicProperties]
 class yy_While extends yy_Base
 {
   public $children = array('condition', 'guard', 'body');

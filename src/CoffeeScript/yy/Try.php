@@ -2,6 +2,7 @@
 
 namespace CoffeeScript;
 
+#[\AllowDynamicProperties]
 class yy_Try extends yy_Base
 {
   public $children = array('attempt', 'recovery', 'ensure');

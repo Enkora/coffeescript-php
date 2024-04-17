@@ -2,6 +2,7 @@
 
 namespace CoffeeScript;
 
+#[\AllowDynamicProperties]
 class yy_Op extends yy_Base
 {
   static $CONVERSIONS = array(

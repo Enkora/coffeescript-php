@@ -52,7 +52,7 @@ if ($case)
 }
 ?>
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <link type="text/css" href="css/style.css" rel="stylesheet" />
 
@@ -86,7 +86,7 @@ if ($case)
           <p class="pass">Passed!</p>
 
           <pre>  <strong>JS</strong>   <strong>PHP</strong></pre>
-          <pre class="result"></pre></code>
+          <pre class="result"></pre>
         <?php endif; ?>
       </div>
 

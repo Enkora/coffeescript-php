@@ -2,6 +2,7 @@
 
 namespace CoffeeScript;
 
+#[\AllowDynamicProperties]
 class yy_Assign extends yy_Base
 {
   public $children = array('variable', 'value');
@@ -29,7 +30,7 @@ class yy_Assign extends yy_Base
 
   function assigns()
   {
-    list($name) = args(func_get_args(), 1);
+    [$name] = args(func_get_args(), 1);
 
     if ($this->context === 'object')
     {
@@ -43,7 +44,7 @@ class yy_Assign extends yy_Base
 
   function compile_conditional($options)
   {
-    list($left, $right) = $this->variable->cache_reference($options);
+    [$left, $right] = $this->variable->cache_reference($options);
 
     if ( ! count($left->properties) && $left->base instanceof yy_Literal &&
       $left->base->value !== 'this' && ! $options['scope']->check($left->base->value))
@@ -158,7 +159,7 @@ class yy_Assign extends yy_Base
         if ($obj->base instanceof yy_Parens)
         {
           $tmp = yy('Value', $obj->unwrap_all());
-          list($obj, $idx) = $tmp->cache_reference($options);
+          [$obj, $idx] = $tmp->cache_reference($options);
         }
         else
         {
@@ -222,7 +223,7 @@ class yy_Assign extends yy_Base
           if ($obj->base instanceof yy_Parens)
           {
             $tmp = yy('Value', $obj->unwrap_all());
-            list($obj, $idx) = $tmp->cache_reference($options);
+            [$obj, $idx] = $tmp->cache_reference($options);
           }
           else
           {
@@ -305,7 +306,7 @@ class yy_Assign extends yy_Base
 
     $name = $this->variable->compile($options);
 
-    list($from_decl, $from_ref) = $from ? $from->cache($options, LEVEL_OP) : array('0', '0');
+    [$from_decl, $from_ref] = $from ? $from->cache($options, LEVEL_OP) : array('0', '0');
 
     if ($to)
     {
@@ -333,7 +334,7 @@ class yy_Assign extends yy_Base
       $to = '9e9';
     }
 
-    list($val_def, $val_ref) = $this->value->cache($options, LEVEL_LIST);
+    [$val_def, $val_ref] = $this->value->cache($options, LEVEL_LIST);
 
     $code = "[].splice.apply({$name}, [{$from_decl}, {$to}].concat({$val_def})), {$val_ref}";
     return $options['level'] > LEVEL_TOP ? "({$code})" : $code;

@@ -2,6 +2,7 @@
 
 namespace CoffeeScript;
 
+#[\AllowDynamicProperties]
 class yy_Closure
 {
   static function wrap($expressions, $statement = NULL, $no_return = FALSE)

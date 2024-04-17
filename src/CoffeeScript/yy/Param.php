@@ -2,6 +2,7 @@
 
 namespace CoffeeScript;
 
+#[\AllowDynamicProperties]
 class yy_Param extends yy_Base
 {
   public $children = array('name', 'value');

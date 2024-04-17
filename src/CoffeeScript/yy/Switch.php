@@ -2,6 +2,7 @@
 
 namespace CoffeeScript;
 
+#[\AllowDynamicProperties]
 class yy_Switch extends yy_Base
 {
   public $children = array('subject', 'cases', 'otherwise');

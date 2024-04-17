@@ -2,6 +2,7 @@
 
 namespace CoffeeScript;
 
+#[\AllowDynamicProperties]
 class yy_Block extends yy_Base
 {
   public $children = array('expressions');
@@ -152,8 +153,8 @@ class yy_Block extends yy_Base
     {
       $rest = array_splice($this->expressions, $i, count($this->expressions));
 
-      list($spaced, $this->spaced) = array(isset($this->spaced) && $this->spaced, FALSE);
-      list($code, $this->spaced) = array($this->compile_node($options), $spaced);
+      [$spaced, $this->spaced] = array(isset($this->spaced) && $this->spaced, FALSE);
+      [$code, $this->spaced] = array($this->compile_node($options), $spaced);
 
       $this->expressions = $rest;
     }

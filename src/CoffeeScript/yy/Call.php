@@ -2,12 +2,13 @@
 
 namespace CoffeeScript;
 
+#[\AllowDynamicProperties]
 class yy_Call extends yy_Base
 {
   public $children = array('variable', 'args');
 
-  private $is_new;
-  private $is_super;
+  public $is_new;
+  public $is_super;
 
   function constructor($variable = NULL, $args = array(), $soak = FALSE)
   {

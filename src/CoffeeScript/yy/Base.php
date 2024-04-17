@@ -4,6 +4,7 @@ namespace CoffeeScript;
 
 Init::init();
 
+#[\AllowDynamicProperties]
 abstract class yy_Base
 {
   public $as_key = FALSE;
@@ -20,6 +21,7 @@ abstract class yy_Base
   public $soak = FALSE;
   public $this = NULL;
   public $to = NULL;
+  public $tab = null;
 
   function __construct() {}
 
@@ -141,11 +143,11 @@ abstract class yy_Base
       return $this;
     }
 
-    foreach ($this->children as $i => $attr)
+    foreach ($this->children as $attr)
     {
       if (isset($this->{$attr}) && $this->{$attr})
       {
-        foreach (flatten(array($this->{$attr})) as $i => $child)
+        foreach (flatten(array($this->{$attr})) as $child)
         {
           if ($func($child) === FALSE)
           {

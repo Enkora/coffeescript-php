@@ -2,6 +2,7 @@
 
 namespace CoffeeScript;
 
+#[\AllowDynamicProperties]
 class yy_Literal extends yy_Base
 {
   public $is_undefined = FALSE;

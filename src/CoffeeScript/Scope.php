@@ -7,6 +7,7 @@ Init::init();
 /**
  * Lexical scope manager.
  */
+#[\AllowDynamicProperties]
 class Scope
 {
   static $root = NULL;

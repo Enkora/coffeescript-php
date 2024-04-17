@@ -2,6 +2,7 @@
 
 namespace CoffeeScript;
 
+#[\AllowDynamicProperties]
 class yy_Existence extends yy_Base
 {
   public $children = array('expression');

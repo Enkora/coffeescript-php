@@ -17,7 +17,7 @@ class yyToken implements ArrayAccess
     public $string = '';
     public $metadata = array();
 
-    function __construct($s, $m = array())
+    public function __construct($s, $m = array())
     {
         if ($s instanceof yyToken) {
             $this->string = $s->string;
@@ -32,22 +32,22 @@ class yyToken implements ArrayAccess
         }
     }
 
-    function __toString()
+    public function __toString()
     {
         return $this->string;
     }
 
-    function offsetExists($offset)
+    public function offsetExists(mixed $offset): bool
     {
         return isset($this->metadata[$offset]);
     }
 
-    function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return $this->metadata[$offset];
     }
 
-    function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         if ($offset === null) {
             if (isset($value[0])) {
@@ -70,7 +70,7 @@ class yyToken implements ArrayAccess
         }
     }
 
-    function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         unset($this->metadata[$offset]);
     }
@@ -1945,7 +1945,6 @@ static public $yy_action = array(
      * is popped from the stack, then call it.
      *
      * Return the major token number for the symbol popped.
-     * @param yyParser
      * @return int
      */
     function yy_pop_parser_stack()
@@ -2024,7 +2023,7 @@ static public $yy_action = array(
                     if ($nextstate < self::YYNSTATE) {
                         // we need to shift a non-terminal
                         $this->yyidx++;
-                        $x = new yyStackEntry;
+                        $x = new yyStackEntry();
                         $x->stateno = $nextstate;
                         $x->major = self::$yyRuleInfo[$yyruleno]['lhs'];
                         $this->yystack[$this->yyidx] = $x;
@@ -2098,7 +2097,7 @@ static public $yy_action = array(
                     if ($nextstate < self::YYNSTATE) {
                         // we need to shift a non-terminal
                         $this->yyidx++;
-                        $x = new yyStackEntry;
+                        $x = new yyStackEntry();
                         $x->stateno = $nextstate;
                         $x->major = self::$yyRuleInfo[$yyruleno]['lhs'];
                         $this->yystack[$this->yyidx] = $x;
@@ -2228,7 +2227,7 @@ static public $yy_action = array(
             ** stack ever overflows */
             return;
         }
-        $yytos = new yyStackEntry;
+        $yytos = new yyStackEntry();
         $yytos->stateno = $yyNewState;
         $yytos->major = $yyMajor;
         $yytos->minor = $yypMinor;
@@ -3104,7 +3103,7 @@ static public $yy_action = array(
             ** That gives a significant speed improvement. */
             if (!self::$yyTraceFILE && $yysize) {
                 $this->yyidx++;
-                $x = new yyStackEntry;
+                $x = new yyStackEntry();
                 $x->stateno = $yyact;
                 $x->major = $yygoto;
                 $x->minor = $yy_lefthand_side;
@@ -3195,7 +3194,7 @@ static public $yy_action = array(
             /* if ($yymajor == 0) return; // not sure why this was here... */
             $this->yyidx = 0;
             $this->yyerrcnt = -1;
-            $x = new yyStackEntry;
+            $x = new yyStackEntry();
             $x->stateno = 0;
             $x->major = 0;
             $this->yystack = array();

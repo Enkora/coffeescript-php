@@ -9,6 +9,7 @@ Init::init();
  * source code, though there are some relatively minor differences in how it
  * works with the parser (since we're using Lemon).
  */
+#[\AllowDynamicProperties]
 class Lexer
 {
   static $COFFEE_ALIASES = array(

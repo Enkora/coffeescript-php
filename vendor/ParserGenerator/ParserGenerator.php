@@ -91,6 +91,7 @@ require_once 'PHP/ParserGenerator/State.php';
  * @example   examples/Parser.y Sample parser file format (PHP_LexerGenerator's parser)
  * @example   examples/Parser.php Sample parser file format PHP code (PHP_LexerGenerator's parser)
  */
+#[\AllowDynamicProperties]
 class PHP_ParserGenerator
 {
     /**
@@ -199,7 +200,6 @@ class PHP_ParserGenerator
         $lv = 0;
         $dv = 0.0;
         $sv = $end = $cp = '';
-        $j; // int
         $errcnt = 0;
         $cp = strstr($argv[$i], '=');
         if (!$cp) {
@@ -289,7 +289,7 @@ class PHP_ParserGenerator
      * if N is out of range.
      *
      * @param int $n
-     * @param int $a
+     * @param array|int $a
      *
      * @return int
      */
@@ -439,7 +439,7 @@ class PHP_ParserGenerator
     */
     function main()
     {
-        $lem = new PHP_ParserGenerator_Data;
+        $lem = new PHP_ParserGenerator_Data();
 
         $this->OptInit($_SERVER['argv']);
         if ($this->_version) {
@@ -468,7 +468,7 @@ class PHP_ParserGenerator
         $lem->basisflag = $this->_basisflag;
         $lem->has_fallback = 0;
         $lem->nconflict = 0;
-        $lem->name = $lem->include_code = $lem->include_classcode = $lem->arg = $lem->tokentype = $lem->start = 0;
+        $lem->name = $lem->include_code = $lem->include_classcode = $lem->tokentype = $lem->start = 0;
         $lem->vartype = 0;
         $lem->stacksize = 0;
         $lem->error = $lem->overflow = $lem->failure = $lem->accept = $lem->tokendest = $lem->tokenprefix = $lem->outname = $lem->extracode = 0;
@@ -502,7 +502,8 @@ class PHP_ParserGenerator
             $lem->symbols[$i]->index = $i;
         }
         // find the first lower-case symbol
-        for ($i = 1; ord($lem->symbols[$i]->name[0]) <= ord('Z'); $i++);
+	    /** @noinspection PhpStatementHasEmptyBodyInspection */
+	    for ($i = 1; ord($lem->symbols[$i]->name[0]) <= ord('Z'); $i++);
         $lem->nterminal = $i;
 
         /* Generate a reprint of the grammar, if requested on the command line */
@@ -602,8 +603,8 @@ class PHP_ParserGenerator
      *
      * @param mixed    $a      A sorted, null-terminated linked list.  (May be null).
      * @param mixed    $b      A sorted, null-terminated linked list.  (May be null).
-     * @param function $cmp    A pointer to the comparison function.
-     * @param integer  $offset Offset in the structure to the "next" field.
+     * @param callable $cmp    A pointer to the comparison function.
+     * @param int  $offset Offset in the structure to the "next" field.
      *
      * @return mixed A pointer to the head of a sorted list containing the
      *               elements of both a and b.
@@ -650,7 +651,7 @@ class PHP_ParserGenerator
     *
     * @param mixed    $list Pointer to a singly-linked list of structures.
     * @param mixed    $next Pointer to pointer to the second element of the list.
-    * @param function $cmp  A comparison function.
+    * @param callable $cmp  A comparison function.
     *
     * @return mixed A pointer to the head of a sorted list containing the
     * elements orginally in list.
@@ -744,7 +745,7 @@ class PHP_ParserGenerator
             while (isset($errmsg[$restart]) && $errmsg[$restart] == ' ') {
                 $restart++;
             }
-            printf("%s%.${end}s\n", $prefix, $errmsg);
+            printf("%s%.{$end}s\n", $prefix, $errmsg);
             $errmsg = substr($errmsg, $restart);
         }
     }
@@ -776,7 +777,7 @@ class PHP_ParserGenerator
             for ($j = $i; $j < $this->nsymbol; $j += $skip) {
                 $sp = $this->symbols[$j];
                 //assert( sp->index==j );
-                printf(" %3d %-${maxlen}.${maxlen}s", $j, $sp->name);
+                printf(" %3d %-$maxlen.{$maxlen}s", $j, $sp->name);
             }
             print "\n";
         }

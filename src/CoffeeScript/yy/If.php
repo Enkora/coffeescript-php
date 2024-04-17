@@ -2,6 +2,7 @@
 
 namespace CoffeeScript;
 
+#[\AllowDynamicProperties]
 class yy_If extends yy_Base
 {
   public $children = array('condition', 'body', 'else_body');

@@ -4,6 +4,7 @@ namespace CoffeeScript;
 
 Init::init();
 
+#[\AllowDynamicProperties]
 class Value
 {
   function __construct($v)

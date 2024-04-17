@@ -4,6 +4,7 @@ namespace CoffeeScript;
 
 Init::init();
 
+#[\AllowDynamicProperties]
 class Rewriter
 {
   static $BALANCED_PAIRS = array(
@@ -52,7 +53,7 @@ class Rewriter
 
     foreach (self::$BALANCED_PAIRS as $pair)
     {
-      list($left, $rite) = $pair;
+      [$left, $rite] = $pair;
 
       self::$EXPRESSION_START[] = self::$INVERSES[$rite] = $left;
       self::$EXPRESSION_END[] = self::$INVERSES[$left] = $rite;
@@ -88,7 +89,7 @@ class Rewriter
         $list[$j] = isset($self->tokens[$k]) ? $self->tokens[$k] : array(NULL, NULL);
       }
 
-      list($one, $two, $three) = $list;
+      [$one, $two, $three] = $list;
 
       if ($one[0] === t('HERECOMMENT'))
       {
@@ -209,7 +210,7 @@ class Rewriter
         ! ($tag === t('ELSE') && $self->tag($i + 1) === t('IF')))
       {
         $starter = $tag;
-        list($indent, $outdent) = $self->indentation($token, TRUE);
+        [$indent, $outdent] = $self->indentation($token, TRUE);
 
         if ($starter === t('THEN'))
         {

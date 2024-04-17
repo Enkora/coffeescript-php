@@ -3014,7 +3014,7 @@ static public $yy_action = array(
 #line 3014 "/var/www/coffeescript-php/grammar.php"
 #line 294 "/var/www/coffeescript-php/grammar.y"
     function yy_r192(){
-  if ($this->yystack[$this->yyidx + -1]->minor{0} === '!') {
+  if ($this->yystack[$this->yyidx + -1]->minor[0] === '!') {
     $this->_retvalue = yy('Op', substr($this->yystack[$this->yyidx + -1]->minor, 1), $this->yystack[$this->yyidx + -2]->minor, $this->yystack[$this->yyidx + 0]->minor);
     $this->_retvalue = $this->_retvalue->invert();
   }
